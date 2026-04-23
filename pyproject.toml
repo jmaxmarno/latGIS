@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "latgis"
+version = "0.1.0"
+description = "Methods to compute geodetic coordinates from image data and telemetry."
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    { name = "Nelly Kane" },
+    { name = "Max Marno" },
+]
+license = { text = "Proprietary" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "numpy>=2,<3",
+    "pandas>=2,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+latgis-service = "latgis_service.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
