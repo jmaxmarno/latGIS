@@ -192,6 +192,16 @@ class ItemLocation:
         return self.__objectDataArray.at[self.curObs, 'pixel']
 
     ####################################################################################################################
+    def getRecentRayECEF(self) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Get the current camera origin point and line-of-sight direction in ECEF.
+        """
+        return (
+            self.__objectDataArray.at[self.curObs, 'ecefPt'],
+            self.__objectDataArray.at[self.curObs, 'ecefVec'],
+        )
+
+    ####################################################################################################################
     def computeResults(self) -> Tuple[float, float, float]:
         """
         Compute results
