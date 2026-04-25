@@ -146,6 +146,10 @@ def _finite_vector(value: object) -> bool:
     return isinstance(value, np.ndarray) and value.shape == (3,) and not np.isnan(value).any()
 
 
+def _normalize_longitude(longitude: float) -> float:
+    return ((longitude + 180.0) % 360.0) - 180.0
+
+
 def _triangulate(project: ProjectState, observations: list[Observation]) -> TriangulationResult:
     if len(observations) < 2:
         raise HTTPException(status_code=400, detail="At least two observations are required.")
@@ -187,7 +191,11 @@ def _triangulate(project: ProjectState, observations: list[Observation]) -> Tria
     result = TriangulationResult(
         id=str(uuid4()),
         observation_ids=[observation.id for observation in observations],
-        coordinate=CoordinateLLE(latitude=float(lle[0]), longitude=float(lle[1]), elevation=float(lle[2])),
+        coordinate=CoordinateLLE(
+            latitude=float(lle[0]),
+            longitude=_normalize_longitude(float(lle[1])),
+            elevation=float(lle[2]),
+        ),
         ecef=CoordinateECEF(x=float(ecef[0]), y=float(ecef[1]), z=float(ecef[2])),
         estimated_error=estimated_error,
         triangulation_count=len(locations),
