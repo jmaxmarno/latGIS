@@ -5,6 +5,6 @@ importable namespace where a future web framework (e.g. FastAPI, Flask) or
 job runner can live without polluting the algorithmic ``latgis`` package.
 """
 
-from .app import main
+from .app import app, main
 
-__all__ = ["main"]
+__all__ = ["app", "main"]

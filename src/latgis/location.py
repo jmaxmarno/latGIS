@@ -192,6 +192,20 @@ class ItemLocation:
         return self.__objectDataArray.at[self.curObs, 'pixel']
 
     ####################################################################################################################
+    def getRecentECEFPoint(self) -> np.ndarray:
+        """
+        Get most recent camera point in ECEF coordinates.
+        """
+        return self.__objectDataArray.at[self.curObs, 'ecefPt']
+
+    ####################################################################################################################
+    def getRecentECEFVector(self) -> np.ndarray:
+        """
+        Get most recent line-of-sight vector in ECEF coordinates.
+        """
+        return self.__objectDataArray.at[self.curObs, 'ecefVec']
+
+    ####################################################################################################################
     def computeResults(self) -> Tuple[float, float, float]:
         """
         Compute results

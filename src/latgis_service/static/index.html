@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>latGIS Desktop Annotator</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <h1>latGIS Desktop Annotator</h1>
+      <p>Upload phone photos, review extracted metadata, click the target, and reload the projected sight lines.</p>
+    </div>
+    <form id="upload-form" class="upload-form">
+      <label class="upload-label">
+        <span>Choose images</span>
+        <input id="file-input" type="file" name="files" accept="image/*" multiple required>
+      </label>
+      <button type="submit">Start desktop MVP</button>
+    </form>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar card">
+      <h2>Observations</h2>
+      <p class="muted">Suggested capture helpers: <strong>Theodolite</strong> (iOS) or <strong>Spyglass</strong> (iOS/Android) for GPS accuracy, heading, and pitch before capture.</p>
+      <div id="observation-list" class="observation-list"></div>
+      <div class="actions">
+        <button id="reload-button" type="button" disabled>Reload result</button>
+      </div>
+      <div id="issues" class="issues"></div>
+    </aside>
+
+    <section class="workspace">
+      <div class="card image-card">
+        <div class="card-header">
+          <h2>Image annotator</h2>
+          <p class="muted">Click the image to update the target pixel.</p>
+        </div>
+        <div id="image-stage" class="image-stage empty">
+          <img id="selected-image" alt="Selected observation">
+          <div id="image-marker" class="image-marker" hidden></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Metadata editor</h2>
+          <p class="muted">EXIF is best-effort only; manual edits are first-class.</p>
+        </div>
+        <form id="metadata-form" class="metadata-form">
+          <label>Latitude<input name="latitude" type="number" step="any"></label>
+          <label>Longitude<input name="longitude" type="number" step="any"></label>
+          <label>Elevation (m)<input name="elevation_m" type="number" step="any"></label>
+          <label>Heading (deg)<input name="heading_deg" type="number" step="any"></label>
+          <label>Pitch (deg)<input name="pitch_deg" type="number" step="any"></label>
+          <label>GPS accuracy (m)<input name="gps_accuracy_m" type="number" step="any"></label>
+          <label>Pixel row<input name="pixel_row" type="number" step="any"></label>
+          <label>Pixel col<input name="pixel_col" type="number" step="any"></label>
+          <label>Captured at<input name="captured_at" type="text"></label>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Map preview</h2>
+          <p class="muted">Camera positions, 2D sight lines, and triangulated result.</p>
+        </div>
+        <div id="map"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Computed result</h2>
+          <p class="muted">Needs at least two ready observations.</p>
+        </div>
+        <pre id="result-panel" class="result-panel">Upload images to begin.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
